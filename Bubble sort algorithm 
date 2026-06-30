@@ -1,0 +1,116 @@
+{
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/patelsantosh8493-ux/My---First---AI---code/blob/main/Bubble%20sort%20algorithm%20\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "live_sensor_data = [\n",
+        "    [45, 12, 0],\n",
+        "    [-10, 85, 1],\n",
+        "    [60, 15, 0],\n",
+        "    [85, 110, 2],\n",
+        "    [0, 5, 0],\n",
+        "    [130, 14, 0]\n",
+        "]\n",
+        "\n",
+        "SPEED_LIMIT = 100\n",
+        "CURRENT_LIMIT = 100\n",
+        "\n",
+        "# --- पड़ाव 1: डेटा फ़िल्टरिंग (तुम्हारा लॉजिक) ---\n",
+        "valid_data = []\n",
+        "for i in range(len(live_sensor_data)):\n",
+        "    if live_sensor_data[i][0] >= 0:\n",
+        "        valid_data.append(live_sensor_data[i])\n",
+        "\n",
+        "# --- पड़ाव 2: मैन्युअल सॉर्टिंग (Bubble Sort) ---\n",
+        "n = len(valid_data)\n",
+        "for i in range(n):\n",
+        "    for j in range(0, n - i - 1):\n",
+        "        # अगर मौजूदा ट्रिप की स्पीड (index 0) अगले वाले से ज्यादा है, तो स्वाइप करो\n",
+        "        if valid_data[j][0] > valid_data[j+1][0]:\n",
+        "            valid_data[j], valid_data[j+1] = valid_data[j+1], valid_data[j]\n",
+        "\n",
+        "print(\"Sorted Valid Data:\", valid_data)\n",
+        "print(\"-\" * 50)\n",
+        "\n",
+        "# --- पड़ाव 3: लाइव डायग्नोस्टिक्स रिपोर्ट ---\n",
+        "for trip in valid_data:\n",
+        "    speed = trip[0]\n",
+        "    current = trip[1]\n",
+        "    error_code = trip[2]\n",
+        "\n",
+        "    print(f\"\\nProcessing Data -> Speed: {speed}, Current: {current}, Error: {error_code}\")\n",
+        "\n",
+        "    # फॉल्ट चेकिंग लॉजिक\n",
+        "    if error_code == 1:\n",
+        "        print(\"[WARNING] Motor Overheating Detected!\")\n",
+        "    elif error_code == 2:\n",
+        "        print(\"[CRITICAL] Brake Failure! Emergency Stop Required!\")\n",
+        "    elif speed > SPEED_LIMIT:\n",
+        "        print(f\"[ALERT] Over-speeding! Current Speed: {speed} km/h\")\n",
+        "    elif current > CURRENT_LIMIT:\n",
+        "        print(f\"[ALERT] High Current Spike: {current} Amps\")\n",
+        "    else:\n",
+        "        print(f\"[STATUS] System Nominal. Speed: {speed}, Current: {current}\")"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "7Y4ptSTLt0G3",
+        "outputId": "e9c5410f-4d6c-4b60-d49b-d3c974661591"
+      },
+      "execution_count": 3,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "Sorted Valid Data: [[0, 5, 0], [45, 12, 0], [60, 15, 0], [85, 110, 2], [130, 14, 0]]\n",
+            "--------------------------------------------------\n",
+            "\n",
+            "Processing Data -> Speed: 0, Current: 5, Error: 0\n",
+            "[STATUS] System Nominal. Speed: 0, Current: 5\n",
+            "\n",
+            "Processing Data -> Speed: 45, Current: 12, Error: 0\n",
+            "[STATUS] System Nominal. Speed: 45, Current: 12\n",
+            "\n",
+            "Processing Data -> Speed: 60, Current: 15, Error: 0\n",
+            "[STATUS] System Nominal. Speed: 60, Current: 15\n",
+            "\n",
+            "Processing Data -> Speed: 85, Current: 110, Error: 2\n",
+            "[CRITICAL] Brake Failure! Emergency Stop Required!\n",
+            "\n",
+            "Processing Data -> Speed: 130, Current: 14, Error: 0\n",
+            "[ALERT] Over-speeding! Current Speed: 130 km/h\n"
+          ]
+        }
+      ]
+    }
+  ],
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyN0DufTNaiHH0B8KjXrUbhg",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "display_name": "Python 3",
+      "name": "python3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "nbformat": 4,
+  "nbformat_minor": 0
+}
